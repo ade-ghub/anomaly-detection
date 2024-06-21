@@ -1,6 +1,6 @@
-# Implementing anomaly detection using NeocortexAPI
+# Implementing anomaly detection in .NET/Azure using NeocortexAPI
 
-Tech used: .NET
+Tech used: .NET/Azure
 
 # Introduction:
 
