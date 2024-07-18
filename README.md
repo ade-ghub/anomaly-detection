@@ -4,9 +4,9 @@ Tech used: .NET/Azure
 
 # Introduction:
 
-HTM (Hierarchical Temporal Memory) is a machine learning algorithm, which uses a hierarchical network of nodes to process time-series data in a distributed way. Each nodes, or columns, can be trained to learn, and recognize patterns in input data. This can be used in identifying anomalies/deviations from normal patterns. It is a promising approach for anomaly detection and prediction in a variety of applications. In our SE project in the winter semester, we used multisequencelearning class in NeoCortex API to implement an anomaly detection system, such that numerical sequences were read from multiple csv files inside a folder, trained our HTM Engine, and used the trained engine for learning patterns and detect anomalies.
+HTM (Hierarchical Temporal Memory) is a machine learning algorithm with immense potential. It uses a hierarchical network of nodes to process time-series data in a distributed way. Each node, or column, can be trained to learn and recognize patterns in input data, making it a promising approach for anomaly detection and prediction in various applications. The use of the multisequencelearning class from NeoCortex API to implement the anomaly detection system, where numerical sequences are read from multiple CSV files inside a folder, further demonstrates the algorithm's versatility. After training an HTM engine, the same trained engine is used for learning patterns and detecting anomalies, showcasing the algorithm's adaptability.
 
-I have refactored the project code so that it can be properly containerized and run in azure cloud, and implemented it in there successfully. 
+The project code for the anomaly detection system has been properly containerized and run in Azure Cloud, and it has been implemented there successfully. 
 
 # Project overview
 
@@ -39,12 +39,6 @@ flowchart LR
     I --> K(11. Result file written to Blob Storage)
   end
 ```
-
-* Link to the SE project [readme](https://github.com/SouravPaulSumit/Team_anomaly/blob/master/mySEProject/AnomalyDetectionSample/README.md).
-* Link to the SE project [code](https://github.com/SouravPaulSumit/Team_anomaly/tree/master/mySEProject/AnomalyDetectionSample) implemented in winter semester.
-* Link to the [paper](https://github.com/SouravPaulSumit/Team_anomaly/blob/master/mySEProject/Documentation/updated_ML2223-12%20Implement%20Anomaly%20Detection%20Sample.pdf).
-* Link to the project [code](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/tree/Anurag_De/Source/MyCloudProjectSample) implemented in Azure cloud this semester.
-
 # Description of the project
 
 The names of the major components used in the experiment in cloud is given in the table below.
@@ -62,7 +56,7 @@ The names of the major components used in the experiment in cloud is given in th
 | [Blob container](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) | ```ade-resultfiles``` | Used to store result csv written after completion of experiment |
 | [Table storage](https://learn.microsoft.com/en-us/azure/storage/tables/table-storage-overview) | ```aderesultstable``` | Table used to store result of the experiment |
 
-All the components are deployed in ***Germany West Central***.
+All the components were deployed in ***Germany West Central***.
 
 Commands to pull my image from:
 
