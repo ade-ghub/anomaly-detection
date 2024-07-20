@@ -41,7 +41,7 @@ flowchart LR
 ```
 # Description of the project
 
-N.B: The project is not live on Azure cloud now; however, following the steps below, the project can be re-run.
+N.B: The project is not live on Azure Cloud now; however, it can be re-run by following the steps below and configuring the components below in Azure Cloud.
 
 The names of the major components used in the project in cloud is given in the table below. 
 
@@ -134,7 +134,7 @@ The text output file from our experiment is uploaded to blob storage container '
 
 ![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/result_blob.png)
 
-Just like my previous project (SE), the project code for running our experiment in cloud uses [MultiSequenceLearning](https://github.com/ddobric/neocortexapi/blob/master/source/Samples/NeoCortexApiSample/MultisequenceLearning.cs) class in NeoCortex API for training our HTM Engine as it's base, so the algorithm remains mostly the same. I have made changes to the earlier code so that the code can be properly containerized for running in cloud.  The most significant changes made are:
+The project code for running the experiment in cloud uses [MultiSequenceLearning](https://github.com/ddobric/neocortexapi/blob/master/source/Samples/NeoCortexApiSample/MultisequenceLearning.cs) class in NeoCortex API for training our HTM Engine as it's base, so the algorithm remains mostly the same. The code has been refactored to run properly in the cloud.  The most significant changes made are:
 
 * Added new class to store new experiment result metrics for writing to results table.
 
@@ -161,7 +161,7 @@ public class myExperiment
 }
 ```
 
-* Added file writing capability in addition to earlier code. 
+* Added file writing capability. 
 
 ![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/result_txt.png)
   
@@ -187,7 +187,7 @@ The results table contain the following parameters:
 
 Brief description about some important C# methods for the cloud project:
 
-* [DownloadCombinedFolders()](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/162530903e2bcc821b6fefee45a9a5c9e4286c39/Source/MyCloudProjectSample/MyExperiment/AzureStorageProvider.cs#L24) method is used for downloading the zip file needed for the experiment to the application's base path, and then returns the paths to the extracted training and predicting folders as an array.
+* DownloadCombinedFolders method is used for downloading the zip file needed for the experiment to the application's base path, and then returns the paths to the extracted training and predicting folders as an array.
 
 ```csharp
 
@@ -205,7 +205,6 @@ public async Task<string[]> DownloadCombinedFolders(string fileName)
    
 ```
 
-* [UploadExperimentResult()](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/162530903e2bcc821b6fefee45a9a5c9e4286c39/Source/MyCloudProjectSample/MyExperiment/AzureStorageProvider.cs#L76) and [UploadResultFile()](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/162530903e2bcc821b6fefee45a9a5c9e4286c39/Source/MyCloudProjectSample/MyExperiment/AzureStorageProvider.cs#L98) methods upload the experiment result to table - 'aderesultstable' and blob container - 'ade-resultfiles' respectively.
-* [Run()](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/162530903e2bcc821b6fefee45a9a5c9e4286c39/Source/MyCloudProjectSample/MyExperiment/Experiment.cs#L32) method runs the main refactored SE code(Experiment). We then use an instance of [ExperimentResult](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/Source/MyCloudProjectSample/MyCloudProject.Common/ExperimentResult.cs) class to store our result.
-* [RunQueueListener()](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/162530903e2bcc821b6fefee45a9a5c9e4286c39/Source/MyCloudProjectSample/MyExperiment/Experiment.cs#L58) waits for a trigger message, and runs the whole experiment sequentially after trigger message is received.
-
+* UploadExperimentResult() and UploadResultFile() methods upload the experiment result to table - 'aderesultstable' and blob container - 'ade-resultfiles' respectively.
+* Run() method runs the main refactored SE code(Experiment). We then use an instance of ExperimentResult class to store our result.
+* RunQueueListener() waits for a trigger message, and runs the whole experiment sequentially after trigger message is received.
