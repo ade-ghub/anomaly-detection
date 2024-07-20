@@ -6,7 +6,7 @@ Tech used: .NET/Azure
 
 HTM (Hierarchical Temporal Memory) is a machine learning algorithm with immense potential. It uses a hierarchical network of nodes to process time-series data in a distributed way. Each node, or column, can be trained to learn and recognize patterns in input data, making it a promising approach for anomaly detection and prediction in various applications. The use of the multisequencelearning class from NeoCortex API to implement the anomaly detection system, where numerical sequences are read from multiple CSV files inside a folder, further demonstrates the algorithm's versatility. After training an HTM engine, the same trained engine is used for learning patterns and detecting anomalies, showcasing the algorithm's adaptability.
 
-The project code for the anomaly detection system has been properly containerized and run in Azure Cloud, and it has been implemented there successfully. 
+The project code for the anomaly detection system has been containerized adequately so that it can be run in Azure Cloud without any issues. 
 
 # Project overview
 
@@ -41,7 +41,9 @@ flowchart LR
 ```
 # Description of the project
 
-The names of the major components used in the experiment in cloud is given in the table below.
+N.B: The project is not live on Azure cloud now; however, following the steps below, the project can be re-run.
+
+The names of the major components used in the project in cloud is given in the table below. 
 
 | Components | Name | Description |
 | --- | --- | --- |
@@ -58,7 +60,7 @@ The names of the major components used in the experiment in cloud is given in th
 
 All the components were deployed in ***Germany West Central***.
 
-Commands to pull my image from:
+Commands to pull image from:
 
 Azure container registry
 ```
@@ -98,39 +100,39 @@ The zip file, which contains our training and predicting folders should be uploa
 
 Some training files are already kept in the container. Please note that the file **"mydataset_2.zip"** can we used for trial cloud experiment (contains a small dataset, takes around 20-25 mins). Rest of the files take a longer time for HTM training. Numbers in the name of the zip files signify the number of sequences that are used for training.
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/training_blob.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/training_blob.png)
 
 The name of the zip file used for the experiment should be provided in the input JSON message. The folder structure inside the zip file ***must*** be in the following format.
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/folder_structure.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/folder_structure.png)
 
 The requestor should provide the JSON message to the 'ade-triggerqueue' queue like this (Please uncheck the box which asks to encode the message body in Base64): 
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/trigger_queue.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/trigger_queue.png)
 
 Once this is done, our experiment starts in the container instance 'adecloudprojectcontainer' (4-core, 10 GB memory), which has already been deployed in azure container instances.
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/container_instance.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/container_instance.png)
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/running_container1%20.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/running_container1%20.png)
 
 The container instance was deployed from azure container registry, where the containerized (dockerized) project code had already been pushed earlier from my local machine.
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/repository.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/repository.png)
 
 Once our experiment is complete, it should look something like this, 
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/running_container2.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/running_container2.png)
 
 Th results from our experiment are written to our table 'aderesultstable':
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/result_table.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/result_table.png)
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/result_table_detail.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/result_table_detail.png)
 
 The text output file from our experiment is uploaded to blob storage container 'ade-resultfiles'.
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/result_blob.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/result_blob.png)
 
 Just like my previous project (SE), the project code for running our experiment in cloud uses [MultiSequenceLearning](https://github.com/ddobric/neocortexapi/blob/master/source/Samples/NeoCortexApiSample/MultisequenceLearning.cs) class in NeoCortex API for training our HTM Engine as it's base, so the algorithm remains mostly the same. I have made changes to the earlier code so that the code can be properly containerized for running in cloud.  The most significant changes made are:
 
@@ -161,7 +163,7 @@ public class myExperiment
 
 * Added file writing capability in addition to earlier code. 
 
-![image](https://github.com/UniversityOfAppliedSciencesFrankfurt/se-cloud-2022-2023/blob/Anurag_De/MyCloudWork/azure_cloud_images/result_txt.png)
+![image](https://github.com/ade-ghub/anomaly-detection/blob/main/MyExperiment/misc/result_txt.png)
   
 The results table contain the following parameters:
 
